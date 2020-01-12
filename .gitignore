@@ -1,0 +1,4 @@
+**/.gradle
+/gradle/*
+buildSrc/src/main/python/**/*.pyc
+**/build/**/*

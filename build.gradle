@@ -1,0 +1,46 @@
+
+apply plugin: 'groovy'
+apply plugin: 'java'
+//apply plugin: 'application'
+
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+
+def isWindows (){
+  return (System.properties['os.name'].toLowerCase().contains("windows"))
+}
+
+println ("OS = " + System.properties['os.name'])
+
+
+task run (type:JavaExec){
+  dependsOn build
+  classpath = sourceSets.main.runtimeClasspath
+  main = 'frc.robot.utils.' + "$rc"
+}
+
+
+task helloPython {
+  group 'Python'
+  description 'is a place holder on how to run a python script from Gradle'
+  doLast {
+    def run = new Run()
+    println 'Hello from Gradle!'
+    run.command("python.exe -u ./buildSrc/src/main/python/hello.py")
+  }
+  doLast{
+    ant.echo("Hello from Cool ANT")
+  }
+}
+
+
+
+task cleanPython (type: Delete){
+  group "ProjectAutomation-Utility"
+  delete fileTree("buildSrc/src/main/python").matching {
+    include "*.pyc"
+  }
+
+}
