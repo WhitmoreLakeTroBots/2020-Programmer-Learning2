@@ -14,11 +14,14 @@ def isWindows (){
 
 println ("OS = " + System.properties['os.name'])
 
-
+//print "-Prc = ${rc}"
 task run (type:JavaExec){
-  dependsOn build
-  classpath = sourceSets.main.runtimeClasspath
-  main = 'frc.robot.utils.' + "$rc"
+  println "frc.robot.utils.${rc}.main"
+  doLast{
+    dependsOn build
+    classpath = sourceSets.main.runtimeClasspath
+    main = "frc.robot.utils.${rc}.main"
+  }
 }
 
 
